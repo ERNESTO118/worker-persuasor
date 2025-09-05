@@ -105,6 +105,4 @@ if __name__ == "__main__":
         
         # El trabajador se "duerme" por 1 hora antes de volver a buscar trabajo.
         print("\nPersuasor en modo de espera por 1 hora...")
-        time.sleep(3600)```
-
-**Guarda este cambio en GitHub.** Railway lo detectará, reconstruirá al Persuasor y, esta vez, se quedará `Active` de forma permanente. ¡Vamos a por el último paso
+        time.sleep(3600)
