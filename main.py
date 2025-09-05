@@ -59,7 +59,7 @@ def main():
     print("\n📚 Cargando la 'Biblia de Ventas' de la campaña...")
     response_arg = supabase.table('argumentarios_venta').select('*').eq('campana_id', ID_CAMPANA_ACTUAL).execute()
     if not response_arg.data:
-        print("❌ No se encontró la 'Biblia de Ventas' para esta campaña. El Persuasor no puede trabajar. Misión abortada.")
+        print("❌ No se encontró la 'Biblia de Ventas' para esta campaña. El Persuasor no puede trabajar.")
         return
     
     argumentarios = response_arg.data
@@ -70,7 +70,7 @@ def main():
     response_prospectos = supabase.table('prospectos').select('*').eq('estado_prospecto', 'analizado_calificado').limit(5).execute()
 
     if not response_prospectos.data:
-        print("✅ No hay nuevos prospectos calificados para persuadir. Misión completada.")
+        print("✅ No hay nuevos prospectos calificados para persuadir.")
         return
 
     prospectos_a_persuadir = response_prospectos.data
@@ -79,7 +79,6 @@ def main():
     for i, prospecto in enumerate(prospectos_a_persuadir):
         print(f"\n--- Persuadiendo a: {prospecto['nombre_negocio']} ---")
         
-        # Estrategia simple: rotamos los argumentarios para variar los mensajes
         argumentario_a_usar = argumentarios[i % len(argumentarios)]
         print(f"  -> Usando el argumentario para el dolor: {argumentario_a_usar['dolor_clave']}")
 
@@ -96,8 +95,6 @@ def main():
 
     print("\n🎉 ¡MISIÓN DEL PERSUASOR COMPLETADA!")
 
-if __name__ == "__main__":
-    main()
 # --- Ejecutamos la función principal en un bucle infinito ---
 if __name__ == "__main__":
     while True:
@@ -107,6 +104,7 @@ if __name__ == "__main__":
             print(f"Ocurrió un error en el ciclo principal: {e}")
         
         # El trabajador se "duerme" por 1 hora antes de volver a buscar trabajo.
-        # En el futuro, el Orquestador lo despertará directamente.
-        print("\nAnalista en modo de espera por 1 hora...")
-        time.sleep(3600)
+        print("\nPersuasor en modo de espera por 1 hora...")
+        time.sleep(3600)```
+
+**Guarda este cambio en GitHub.** Railway lo detectará, reconstruirá al Persuasor y, esta vez, se quedará `Active` de forma permanente. ¡Vamos a por el último paso
