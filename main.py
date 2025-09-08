@@ -22,7 +22,6 @@ def main():
     print("--- INICIO DE MISIÓN DEL PERSUASOR ---")
     supabase, model_ia = inicializar_servicios()
 
-    # Buscamos una campaña en estado 'persuadiendo'
     response_campana = supabase.table('campanas').select('*').eq('estado_campana', 'persuadiendo').limit(1).execute()
     if not response_campana.data:
         print("No hay campañas activas para persuadir.")
@@ -30,7 +29,6 @@ def main():
     
     campana_actual = response_campana.data[0]
     
-    # Recuperamos la "Biblia de Ventas"
     response_arg = supabase.table('argumentarios_venta').select('*').eq('campana_id', campana_actual['id']).execute()
     if not response_arg.data:
         print("❌ No se encontró la 'Biblia de Ventas'. Abortando.")
@@ -38,11 +36,9 @@ def main():
     
     argumentarios = response_arg.data
     
-    # Buscamos prospectos calificados
     response_prospectos = supabase.table('prospectos').select('*').eq('estado_prospecto', 'analizado_calificado').eq('campana_id', campana_actual['id']).limit(5).execute()
     if not response_prospectos.data:
         print("✅ No hay nuevos prospectos calificados para persuadir.")
-        # Si no hay más prospectos, marcamos la campaña como completada
         supabase.table('campanas').update({'estado_campana': 'completada'}).eq('id', campana_actual['id']).execute()
         return
 
