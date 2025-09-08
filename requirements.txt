@@ -1,2 +1,3 @@
 postgrest
 google-generativeai
+supabase
